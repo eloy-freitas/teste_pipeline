@@ -13,6 +13,7 @@ steps:
 - checkout: none
 - script: |
       cd ~/test
+      git init
       git pull https://${AZURE_GIT_USERNAME}:$(urlencode ${AZURE_GIT_PASSWORD})@${AZURE_REPO_URL} main:main
       
   displayName: 'teste pipeline'
