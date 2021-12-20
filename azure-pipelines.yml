@@ -12,9 +12,11 @@ pool:
 steps:
 - checkout: none
 - script: |
-      cd ~/test
-      git clone https://itixti@dev.azure.com/itixti/BI%20ITIX/_git/TESTE
-      git pull 
+      git clone --mirror https://${AZURE_GIT_USERNAME}:$(urlencode ${AZURE_GIT_PASSWORD})@${AZURE_REPO_URL} test
+      
   displayName: 'teste pipeline'
-
+  env:
+    AZURE_REPO_URL: $(AZURE_REPO_URL)
+    AZURE_GIT_USERNAME: $(AZURE_GIT_USERNAME)
+    AZURE_GIT_PASSWORD: $(AZURE_GIT_PASSWORD)
 
