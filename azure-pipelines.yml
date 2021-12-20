@@ -12,8 +12,7 @@ pool:
 steps:
 - checkout: none
 - script: |
-      cd ~/test
-      git init
+      cd ~/test/TESTE
       git pull https://${AZURE_GIT_USERNAME}:${AZURE_GIT_PASSWORD}@${AZURE_REPO_URL} main:main
       
   displayName: 'teste pipeline'
