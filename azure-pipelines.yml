@@ -10,15 +10,30 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - checkout: none
 - script: |
-      cd ~/test/TESTE
-      git init
-      git pull https://${AZURE_GIT_USERNAME}:${AZURE_GIT_PASSWORD}@${AZURE_REPO_URL} main:main
+      # configurando git 
+
+      echo $SSH_PRIVATE_KEY > /tmp/ssh_private_key
+      eval $(ssh-agent)
+      ssh-add /tmp/ssh_private_key
+
+      # criando pasta do repositorio
+      mkdir /tmp/repo
+      cd /tmp/repo
+      git clone $REPO_URL
+
+      # sincronizando com o outro repositório remoto
+      
+      git remote set-url origin $GITHUB_REPO_URL
+
+      git push
+      
       
   displayName: 'teste pipeline'
   env:
-    AZURE_REPO_URL: $(AZURE_REPO_URL)
-    AZURE_GIT_USERNAME: $(AZURE_GIT_USERNAME)
-    AZURE_GIT_PASSWORD: $(AZURE_GIT_PASSWORD)
+    SSH_PRIVATE_KEY: $(ssh_private_key)
+    AZURE_REPO_URL: $(repo_url)
+    GITHUB_REPO_URL: $(git_repo_url)
 
