@@ -16,6 +16,7 @@ steps:
       # configurando git 
 
       echo $SSH_PRIVATE_KEY > /tmp/ssh_private_key
+      chmod 400 /tmp/ssh_private_key
       eval $(ssh-agent)
       ssh-add /tmp/ssh_private_key
 
