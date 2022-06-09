@@ -13,36 +13,26 @@ steps:
 
 - checkout: none
 - script: |
-
-      # configurando git azure
-
-      echo $AZURE_SSH_PRIVATE_KEY > /tmp/azure_ssh_private_key
-      chmod 400 /tmp/azure_ssh_private_key
-
-      eval $(ssh-agent)
-      ssh-add /tmp/azure_ssh_private_key
-
-      # criando pasta do repositorio
-      mkdir /tmp/repo
-      cd /tmp/repo
-      git clone $REPO_URL
-
-      # sincronizando com o outro repositório remoto
-      
-      git remote set-url origin $GITHUB_REPO_URL
-
       echo $GIT_SSH_PRIVATE_KEY > /tmp/git_ssh_private_key
+      
       chmod 400 /tmp/git_ssh_private_key
 
       eval $(ssh-agent)
       ssh-add /tmp/git_ssh_private_key
-      git push
+
+      # sincronizando com o outro repositório remoto
+      
+      git remote add sync $GITHUB_REPO_URL
+
+      git checkout main
+
+      git pull
+
+      git push 
       
       
   displayName: 'teste pipeline'
   env:
     GIT_SSH_PRIVATE_KEY: $(ssh_private_key)
-    AZURE_REPO_URL: $(repo_url)
     GITHUB_REPO_URL: $(git_repo_url)
-    AZURE_SSH_PRIVATE_KEY: $(azure_ssh_key)
 
