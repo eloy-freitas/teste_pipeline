@@ -26,11 +26,9 @@ steps:
       
       ssh-add /tmp/git_ssh_private_key
 
-      git remote add --mirror=fetch secondary $GITHUB_REPO_URL
+      git remote add secondary $GITHUB_REPO_URL
       
-      git fetch origin
-     
-      git push secondary -u mater
+      git remote -v
 
   displayName: 'teste pipeline'
   env:
