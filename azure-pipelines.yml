@@ -16,7 +16,7 @@ steps:
   inputs:
     secureFile: 'git_ssh_private_key'
 
-- checkout: 
+- checkout: none
 - script: |
       echo $(git_ssh_private_key_file.secureFilePath) > /tmp/git_ssh_private_key
       
