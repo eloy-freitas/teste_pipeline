@@ -32,14 +32,10 @@ steps:
       git checkout main
 
       git pull 
-      
-      git add .
-
-      git commit -m "sync"
 
       git remote add secondary $GITHUB_REPO_URL
 
-      git push -u secondary master
+      git push secondary main
 
   displayName: 'teste pipeline'
   env:
