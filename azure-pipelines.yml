@@ -26,6 +26,9 @@ steps:
       
       ssh-add /tmp/git_ssh_private_key
 
+      git config --global user.email "azure@pipelines.com"
+      git config --global user.name "azure-pipeline"
+
       git checkout main
 
       git add .
