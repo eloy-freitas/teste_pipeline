@@ -28,7 +28,7 @@ steps:
 
       git remote add secondary $GITHUB_REPO_URL
       
-      git remote -v
+      git branch
 
   displayName: 'teste pipeline'
   env:
