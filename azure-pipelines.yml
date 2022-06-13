@@ -26,8 +26,14 @@ steps:
       
       ssh-add /tmp/git_ssh_private_key
 
+      git checkout main
+
+      git add .
+
+      git commit -m "sync"
+
       git remote add secondary $GITHUB_REPO_URL
-      
+
       git push -u secondary master
 
   displayName: 'teste pipeline'
