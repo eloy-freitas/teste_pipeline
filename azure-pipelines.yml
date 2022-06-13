@@ -20,19 +20,10 @@ steps:
       eval $(ssh-agent)
       ssh-add /tmp/git_ssh_private_key
 
-      # sincronizando com o outro repositório remoto
-      
-      git remote add sync $GITHUB_REPO_URL
+      ssh-add -l
 
-      git checkout main
-
-      git pull
-
-      git push 
-      
-      
   displayName: 'teste pipeline'
   env:
-    GIT_SSH_PRIVATE_KEY: $(ssh_private_key)
+    GIT_SSH_PRIVATE_KEY: $(git_ssh_private_key)
     GITHUB_REPO_URL: $(git_repo_url)
 
