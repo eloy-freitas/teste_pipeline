@@ -15,6 +15,7 @@ steps:
 - script: |
       echo $GIT_SSH_PRIVATE_KEY > /tmp/git_ssh_private_key
       
+      cat /tmp/git_ssh_private_key
       chmod 400 /tmp/git_ssh_private_key
 
       eval $(ssh-agent)
