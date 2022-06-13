@@ -20,16 +20,17 @@ steps:
 - script: |
       cat $(git_ssh_private_key_file.secureFilePath) > /tmp/git_ssh_private_key
       
-      cat /tmp/git_ssh_private_key
       chmod 400 /tmp/git_ssh_private_key
 
       eval $(ssh-agent)
+      
       ssh-add /tmp/git_ssh_private_key
 
-      ssh-add -l
+      git remote add --mirror=fetch secondary $GITHUB_REPO_URL
+      
+      git push secondary --all
 
   displayName: 'teste pipeline'
   env:
-    GIT_SSH_PRIVATE_KEY: $(git_ssh_private_key)
     GITHUB_REPO_URL: $(git_repo_url)
 
