@@ -28,7 +28,9 @@ steps:
 
       git remote add --mirror=fetch secondary $GITHUB_REPO_URL
       
-      git push secondary --all
+      git fetch origin
+     
+      git push secondary -u mater
 
   displayName: 'teste pipeline'
   env:
