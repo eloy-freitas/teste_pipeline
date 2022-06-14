@@ -30,15 +30,8 @@ steps:
       echo "adicionando chave ssh no ssh-agent..."
       ssh-add /tmp/git_ssh_private_key
 
-      echo "configurando usuário..."
-      git config --global user.email "azure@pipelines.com"
-      git config --global user.name "azure-pipeline"
-
       echo "git checkout main..."
       git checkout main
-
-      echo "git pull..."
-      git pull 
 
       echo "git remote add..."
       git remote add secondary $GITHUB_REPO_URL
