@@ -18,23 +18,28 @@ steps:
 
 - checkout: self
 - script: |
+      echo "extraindo cheve ssh"
       cat $(git_ssh_private_key_file.secureFilePath) > /tmp/git_ssh_private_key
       
+      echo "definindo permissões no arquivo da chave ssh"
       chmod 400 /tmp/git_ssh_private_key
 
+      echo "iniciando ssh-agent"
       eval $(ssh-agent)
       
+      echo "adicionando chave ssh no ssh-agent"
       ssh-add /tmp/git_ssh_private_key
 
-      git config --global user.email "azure@pipelines.com"
-      git config --global user.name "azure-pipeline"
-
+      echo "git checkout main"
       git checkout main
 
+      echo "git pull "
       git pull 
 
+      echo "git remote add"
       git remote add secondary $GITHUB_REPO_URL
 
+      echo "git push"
       git push secondary main
 
   displayName: 'teste pipeline'
