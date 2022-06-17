@@ -33,6 +33,9 @@ steps:
       echo "git checkout main..."
       git checkout main
 
+      echo "git pull..."
+      git pull
+
       echo "git remote add..."
       git remote add secondary $GITHUB_REPO_URL
 
