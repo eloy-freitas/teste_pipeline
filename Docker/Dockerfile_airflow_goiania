@@ -1,0 +1,42 @@
+FROM apache/airflow:2.2.0-python3.9
+LABEL version="1.1.0" description="Airflow-Unimed-Goiania-hmg" maintainer="Rodrigo Seares<rodrigo.seares@itixti.com.br>" 
+
+ENV AIRFLOW_HOME=/opt/airflow
+ENV LD_LIBRARY_PATH=/opt/oracle/instantclient_19_14
+
+USER root
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+         build-essential libopenmpi-dev curl wget vim git gnupg2 unzip libaio1 tzdata libaio-dev \
+  && apt-get autoremove -yqq --purge \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+  
+RUN mkdir -p /opt/oracle
+
+RUN wget https://download.oracle.com/otn_software/linux/instantclient/1914000/instantclient-basic-linux.x64-19.14.0.0.0dbru.zip -P /opt/oracle
+
+RUN cd /opt/oracle \
+	&& unzip instantclient-basic-linux.x64-19.14.0.0.0dbru.zip
+
+USER airflow
+
+COPY requirements_bi_unimed_goiania.txt /opt/airflow
+
+RUN pip install -r /opt/airflow/requirements_bi_unimed_goiania.txt
+  
+USER root 
+
+RUN chown -R airflow: ${AIRFLOW_HOME}
+
+USER airflow
+
+WORKDIR ${AIRFLOW_HOME}
+
+COPY DW_TOOLS /opt/airflow/dags/DW_TOOLS
+
+COPY AUDITORIA_AUTORIZATIVA /opt/airflow/dags/AUDITORIA_AUTORIZATIVA
+
+
+
